@@ -1,0 +1,7 @@
+flask
+flask-socketio
+eventlet
+peewee
+event-bus
+psutil
+

@@ -1,0 +1,15 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+*.swp
+var/*.log
+var/*.log.*
+var/*.db*
+var/*.pid
+var/settings.ini
+var/documents
+etc/config.ini
+
+
