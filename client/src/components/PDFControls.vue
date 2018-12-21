@@ -1,56 +1,51 @@
 <template>
   <div class="pdf-controls">
-    <v-navigation-drawer
-      v-model="drawer"
-      absolute
-      dark
-      temporary
-      right
+  
+    <el-dialog
+      :visible.sync="dialog"
+      title="Perform"
+      model
+      modal-append-to-body
+      append-to-body
     >
-      <v-list class="pa-1">
-        <v-list-tile @click.stop="drawer = !drawer">
-          <v-list-tile-action>
-            <v-icon>chevron_right</v-icon>
-          </v-list-tile-action>
-        </v-list-tile>
 
-        <v-slider
-          label="Scale"
-          min="50"
-          max="300"
-          step="10"
-          thumb-label="always"
-          v-model="workingScale"
-          @end="setScale"
-        >
-        </v-slider>
+      <el-form
+        label-width="120px"
+      >
+      
+        <el-form-item label="Zoom">
+          <el-slider
+            v-model="workingScale"
+            show-input
+            label="Scale"
+            :min="50"
+            :max="300"
+            :step="10"
+            @change="setScale"
+          />
+        </el-form-item>
         
-        <v-list-group
-          prepend-icon="account_circle"
-          v-model="expandDocs"
-        >
-          <v-list-tile slot="activator">
-            <v-list-tile-title>Documents</v-list-tile-title>
-          </v-list-tile>
-
-          <v-list-tile
-            v-for="name in documentNames"
+        <el-form-item label="Document">
+          <el-select
+            v-model="currentDocumentName"
+            placeholder="Select Document"
+            @change="setCurrentDocumentName"
+          >
+            <el-option
+              v-for="name in documentNames"
               :key="name"
-              @click="setCurrentDocumentName(name)"
-              avatar
+              :label="name"
+              :value="name"
             >
-            <v-list-tile-avatar>
-              <v-icon v-if="name == currentDocumentName">check</v-icon>
-            </v-list-tile-avatar>
-            <v-list-tile-title v-text="name"></v-list-tile-title>
-          </v-list-tile>
-            
-        </v-list-group>
+            </el-option>
+          </el-select>
+        </el-form-item>
 
-      </v-list>
-    </v-navigation-drawer>
+      </el-form>
+      
+    </el-dialog>
     
-    <div class="drawerHotspot" @click="drawer = !drawer"/>
+    <div class="dialogHotspot" @click="dialog = true"/>
     <div class="nextPageHotspot" @click="nextPage"/>
     <div class="previousPageHotspot" @click="previousPage"/>
     
@@ -70,7 +65,7 @@
   overflow: clip;
 }
 
-.drawerHotspot {
+.dialogHotspot {
   position: absolute;
   top: 0;
   right: 0;
@@ -121,8 +116,7 @@ export default {
   
   data() {
     return {
-      drawer: false,
-      expandDocs: false,
+      dialog: false,
       documentNames: [
         'anger a.pdf',
         'anger a Violoncello 1.pdf',

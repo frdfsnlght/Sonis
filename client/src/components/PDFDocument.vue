@@ -12,7 +12,7 @@
 <style scoped>
 
 .pdf-document {
-  /*background-color: #000000;*/
+  background-color: #000000;
   text-align: center;
 }
 
